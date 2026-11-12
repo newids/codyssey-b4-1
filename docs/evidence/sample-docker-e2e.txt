@@ -1,0 +1,322 @@
+=== 2. setup 01~05
+[INFO] sshd_config 백업: /etc/ssh/sshd_config.bak.20261028_052810
+[INFO] sshd 유효 설정:
+port 20022
+permitrootlogin no
+[WARN] systemd 로 부팅되지 않았다(컨테이너?). service 로 재시작을 시도한다
+ * Restarting OpenBSD Secure Shell server sshd
+   ...done.
+[INFO] sshd 가 20022 에서 리슨 중:
+LISTEN 0      128          0.0.0.0:20022      0.0.0.0:*    users:(("sshd",pid=4970,fd=3))
+LISTEN 0      128             [::]:20022         [::]:*    users:(("sshd",pid=4970,fd=4))
+Default incoming policy changed to 'deny'
+(be sure to update your rules accordingly)
+Default outgoing policy changed to 'allow'
+(be sure to update your rules accordingly)
+WARN: initcaps
+[Errno 2] iptables v1.8.7 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+
+
+Rules updated
+Rules updated (v6)
+WARN: initcaps
+[Errno 2] iptables v1.8.7 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+
+
+Rules updated
+Rules updated (v6)
+ERROR: problem running ufw-init
+iptables-restore v1.8.7 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+
+iptables-restore v1.8.7 (nf_tables): Couldn't load match `conntrack':No such file or directory
+
+Error occurred at line: 2
+Try `iptables-restore -h' or 'iptables-restore --help' for more information.
+iptables-restore v1.8.7 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+
+iptables-restore v1.8.7 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+
+iptables-restore v1.8.7 (nf_tables): Couldn't load match `conntrack':No such file or directory
+
+Error occurred at line: 25
+Try `iptables-restore -h' or 'iptables-restore --help' for more information.
+iptables-restore v1.8.7 (nf_tables): unknown option "--dport"
+Error occurred at line: 19
+Try `iptables-restore -h' or 'iptables-restore --help' for more information.
+iptables-restore v1.8.7 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+
+iptables-restore v1.8.7 (nf_tables): unknown option "--dport"
+Error occurred at line: 21
+Try `iptables-restore -h' or 'iptables-restore --help' for more information.
+iptables-restore v1.8.7 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+
+iptables-restore v1.8.7 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+
+sysctl: setting key "net.ipv4.conf.all.accept_redirects", ignoring: Read-only file system
+sysctl: setting key "net.ipv4.conf.default.accept_redirects", ignoring: Read-only file system
+sysctl: setting key "net.ipv6.conf.all.accept_redirects", ignoring: Read-only file system
+sysctl: setting key "net.ipv6.conf.default.accept_redirects", ignoring: Read-only file system
+sysctl: setting key "net.ipv4.icmp_echo_ignore_broadcasts", ignoring: Read-only file system
+sysctl: setting key "net.ipv4.icmp_ignore_bogus_error_responses", ignoring: Read-only file system
+sysctl: setting key "net.ipv4.icmp_echo_ignore_all", ignoring: Read-only file system
+sysctl: setting key "net.ipv4.conf.all.log_martians", ignoring: Read-only file system
+sysctl: setting key "net.ipv4.conf.default.log_martians", ignoring: Read-only file system
+
+Problem loading ipv6 (skipping)
+Problem running '/etc/ufw/before.rules'
+Problem running '/etc/ufw/after.rules'
+Problem running '/etc/ufw/user.rules'
+
+[WARN] ufw enable 실패. 컨테이너 환경이면 iptables 권한이 없어 정상이다(VM 에서 수행)
+
+[NEXT] 현재 세션은 닫지 말고, 다른 터미널에서 접속 확인:  ssh -p 20022 <user>@<host>
+       root 차단 확인:  ssh -p 20022 root@<host>   -> Permission denied
+       문제가 있으면 복원:  cp /etc/ssh/sshd_config.bak.20261028_052810 /etc/ssh/sshd_config && systemctl restart ssh
+[INFO] group created: agent-common
+[INFO] group created: agent-core
+[INFO] user created: agent-admin  (비밀번호는 필요 시 'passwd agent-admin' 로 설정)
+[INFO] user created: agent-dev  (비밀번호는 필요 시 'passwd agent-dev' 로 설정)
+[INFO] user created: agent-test  (비밀번호는 필요 시 'passwd agent-test' 로 설정)
+
+[INFO] 계정/그룹:
+uid=1000(agent-admin) gid=1002(agent-admin) groups=1002(agent-admin),1000(agent-common),1001(agent-core)
+uid=1001(agent-dev) gid=1003(agent-dev) groups=1003(agent-dev),1000(agent-common),1001(agent-core)
+uid=1002(agent-test) gid=1004(agent-test) groups=1004(agent-test),1000(agent-common)
+agent-common:x:1000:agent-admin,agent-dev,agent-test
+agent-core:x:1001:agent-admin,agent-dev
+
+[INFO] 디렉토리/권한:
+drwxr-x---+ 5 agent-admin agent-core   4096 Oct 28 05:28 /home/agent-admin/agent-app
+drwxrws---+ 2 agent-admin agent-core   4096 Oct 28 05:28 /home/agent-admin/agent-app/api_keys
+drwxr-x---  2 agent-dev   agent-core   4096 Oct 28 05:28 /home/agent-admin/agent-app/bin
+drwxrws---+ 2 agent-admin agent-common 4096 Oct 28 05:28 /home/agent-admin/agent-app/upload_files
+drwxrws---+ 2 agent-admin agent-core   4096 Oct 28 05:28 /var/log/agent-app
+drwxrws---+ 2 agent-admin agent-core   4096 Oct 28 05:28 /var/log/monitor/agent-app/archive
+# file: /home/agent-admin/agent-app/upload_files
+# owner: agent-admin
+# group: agent-common
+# flags: -s-
+user::rwx
+group::rwx
+group:agent-common:rwx
+mask::rwx
+other::---
+default:user::rwx
+default:group::rwx
+default:group:agent-common:rwx
+default:mask::rwx
+default:other::---
+
+# file: /home/agent-admin/agent-app/api_keys
+# owner: agent-admin
+# group: agent-core
+# flags: -s-
+user::rwx
+group::rwx
+group:agent-core:rwx
+mask::rwx
+other::---
+default:user::rwx
+default:group::rwx
+default:group:agent-core:rwx
+default:mask::rwx
+default:other::---
+
+# file: /var/log/agent-app
+# owner: agent-admin
+# group: agent-core
+# flags: -s-
+user::rwx
+group::rwx
+group:agent-core:rwx
+mask::rwx
+other::---
+default:user::rwx
+default:group::rwx
+default:group:agent-core:rwx
+default:mask::rwx
+default:other::---
+
+[INFO] 환경 변수 파일 작성: /etc/profile.d/agent-env.sh
+# Codyssey B4-1 agent-app 실행 환경 (모든 로그인 셸에 적용). cron 에서는 명시적으로 source 한다.
+export AGENT_HOME="/home/agent-admin/agent-app"
+export AGENT_PORT="15034"
+export AGENT_UPLOAD_DIR="/home/agent-admin/agent-app/upload_files"
+export AGENT_KEY_PATH="/home/agent-admin/agent-app/api_keys/t_secret.key"
+export AGENT_LOG_DIR="/var/log/agent-app"
+[INFO] 키 파일 생성: /home/agent-admin/agent-app/api_keys/t_secret.key
+-rw-rw----+ 1 agent-admin agent-core 19 Oct 28 05:28 /home/agent-admin/agent-app/api_keys/t_secret.key
+1 /home/agent-admin/agent-app/api_keys/t_secret.key
+
+[INFO] 검증(agent-admin 로그인 셸 기준):
+AGENT_HOME=/home/agent-admin/agent-app
+AGENT_KEY_PATH=/home/agent-admin/agent-app/api_keys/t_secret.key
+AGENT_LOG_DIR=/var/log/agent-app
+AGENT_PORT=15034
+AGENT_UPLOAD_DIR=/home/agent-admin/agent-app/upload_files
+agent_api_key_test
+[INFO] installed: /home/agent-admin/agent-app/bin/monitor.sh
+[INFO] installed: /home/agent-admin/agent-app/bin/report.sh
+[INFO] installed: /home/agent-admin/agent-app/bin/log_retention.sh
+[INFO] monitor.sh 문법 검사 OK
+total 24
+-rwxr-x--- 1 agent-dev agent-core  4227 Oct 28 05:28 log_retention.sh
+-rwxr-x--- 1 agent-dev agent-core 10916 Oct 28 05:28 monitor.sh
+-rwxr-x--- 1 agent-dev agent-core  4033 Oct 28 05:28 report.sh
+
+[INFO] agent-admin 으로 실행 가능 여부 확인 (앱이 떠 있지 않으면 exit 1 이 정상):
+====== SYSTEM MONITOR RESULT ======
+[HEALTH CHECK]
+  Checking process 'agent_app.py|agent-app-linux'... [FAIL] process 'agent_app\.py|agent-app-linux' is not running
+[FAIL]
+exit=1
+[INFO] 등록된 crontab (agent-admin):
+# b4-1 monitor
+* * * * * [ -r /etc/profile.d/agent-env.sh ] && . /etc/profile.d/agent-env.sh; MONITOR_SKIP_REPORT=1 /home/agent-admin/agent-app/bin/monitor.sh >/dev/null 2>>/var/log/agent-app/monitor.cron.log
+
+[NEXT] 1~2분 뒤 자동 누적 확인:
+   tail -n 3 /var/log/agent-app/monitor.log ; sleep 65 ; tail -n 3 /var/log/agent-app/monitor.log
+   grep CRON /var/log/syslog | tail   (또는 journalctl -u cron -n 5)
+=== 3. 검증: sshd 유효 설정
+port 20022
+permitrootlogin no
+sshd listening on 20022 OK
+=== 4. 검증: 그룹 구성
+groups OK
+=== 5. 검증: 권한 실동작
+test->upload_files write OK
+test->api_keys denied OK
+test->log dir denied OK
+dev->api_keys read OK
+admin->log write OK
+setgid group inherit OK
+=== 6. 앱 없는 상태에서 monitor.sh → exit 1
+====== SYSTEM MONITOR RESULT ======
+[HEALTH CHECK]
+  Checking process 'agent_app.py|agent-app-linux'... [FAIL] process 'agent_app\.py|agent-app-linux' is not running
+[FAIL]
+exit 1 OK
+=== 7. mock 앱 기동 (agent-admin)
+[INFO] mock 앱 실행 (제출용 아님)
+> Starting Agent Boot Sequence...
+[1/5] Checking User Account [OK]
+    ... Running as service user 'agent-admin' (uid=1000)
+[2/5] Verifying Environment Variables [OK]
+    ... All required Envs correct
+[3/5] Checking Required Files [OK]
+    ... Verified key file with correct key string.
+[4/5] Checking Port Availability [OK]
+    ... Port 15034 is available.
+[5/5] Verifying Log Permission [OK]
+    ... Log directory is writable: /var/log/agent-app
+------------------------------------------------------------
+All Boot Checks Passed! Agent READY
+LISTEN 0      5            0.0.0.0:15034      0.0.0.0:*                                  
+=== 8. monitor.sh 정상 실행
+====== SYSTEM MONITOR RESULT ======
+[HEALTH CHECK]
+  Checking process 'agent_app.py|agent-app-linux'... [OK] (PID: 5241)
+  Checking port 15034... [OK]
+[FIREWALL CHECK]
+  [WARNING] ufw is INACTIVE (inbound ports are not filtered)
+[RESOURCE MONITORING]
+  CPU Usage : 0.1%
+  MEM Usage : 10.2%
+  DISK Used : 58%
+  [WARNING] MEM threshold exceeded (10.2% > 10%)
+[INFO] Log appended: /var/log/agent-app/monitor.log
+====== STATISTICS REPORT ======
+[CPU]
+  Average : 0.1%
+  Maximum : 0.1% at 2026-10-28 05:28:14
+  Minimum : 0.1% at 2026-10-28 05:28:14
+[Memory]
+  Average : 10.2%
+  Maximum : 10.2% at 2026-10-28 05:28:14
+  Minimum : 10.2% at 2026-10-28 05:28:14
+[Disk]
+  Average : 58.0%
+  Maximum : 58.0% at 2026-10-28 05:28:14
+  Minimum : 58.0% at 2026-10-28 05:28:14
+[Samples]
+  Data Points: 1 samples
+exit 0 OK
+[2026-10-28 05:28:14] PID:5241 CPU:0.1% MEM:10.2% DISK_USED:58%
+=== 9. cron 자동 누적 (최대 130초 대기)
+before=1 after=2
+cron growth OK
+=== 10. 보너스 스크립트
+====== STATISTICS REPORT ======
+[CPU]
+  Average : 0.1%
+  Maximum : 0.1% at 2026-10-28 05:28:14
+  Minimum : 0.0% at 2026-10-28 05:29:02
+[Memory]
+  Average : 9.9%
+  Maximum : 10.2% at 2026-10-28 05:28:14
+  Minimum : 9.6% at 2026-10-28 05:29:02
+[Disk]
+  Average : 58.0%
+  Maximum : 58.0% at 2026-10-28 05:28:14
+  Minimum : 58.0% at 2026-10-28 05:28:14
+[Samples]
+  Data Points: 2 samples
+[2026-10-28 05:29:04] [INFO] log retention start (log=/var/log/agent-app, archive=/var/log/monitor/agent-app/archive, compress>7d, delete>30d, dry-run=1)
+[2026-10-28 05:29:04] [INFO] no *.log files older than 7 days in /var/log/agent-app
+[2026-10-28 05:29:04] [INFO] no *.gz archives older than 30 days in /var/log/monitor/agent-app/archive
+[2026-10-28 05:29:04] [INFO] log retention done
+[2026-10-28 05:29:04] [INFO] log retention start (log=/var/log/agent-app, archive=/var/log/monitor/agent-app/archive, compress>7d, delete>30d, dry-run=0)
+[2026-10-28 05:29:04] [INFO] archived: /var/log/agent-app/monitor.20260101_000000.log -> /var/log/monitor/agent-app/archive/monitor.20260101_000000.log.20261028_052904.gz
+[2026-10-28 05:29:04] [INFO] no *.gz archives older than 30 days in /var/log/monitor/agent-app/archive
+[2026-10-28 05:29:04] [INFO] log retention done
+retention archive OK
+test->archive denied OK
+=== 11. 증빙 수집 (컨테이너 내부 /tmp/evidence)
+01-sshd-config.txt
+02-sshd-listen.txt
+03-firewall.txt
+04-users-groups.txt
+05-directories.txt
+06-acl.txt
+07-permission-test.txt
+08-env.txt
+09-keyfile.txt
+10-app-listen.txt
+11-monitor-script.txt
+12-monitor-run.txt
+13-monitor-log.txt
+14-crontab.txt
+15-cron-growth.txt
+16-report.txt
+17-log-retention.txt
+### monitor.sh 실행 결과 (agent-admin)
+$ su - agent-admin -c '. /etc/profile.d/agent-env.sh; /home/agent-admin/agent-app/bin/monitor.sh; echo exit=$?'
+
+====== SYSTEM MONITOR RESULT ======
+[HEALTH CHECK]
+  Checking process 'agent_app.py|agent-app-linux'... [OK] (PID: 5241)
+  Checking port 15034... [OK]
+[FIREWALL CHECK]
+  [WARNING] ufw is INACTIVE (inbound ports are not filtered)
+[RESOURCE MONITORING]
+  CPU Usage : 0.1%
+  MEM Usage : 9.6%
+  DISK Used : 58%
+[INFO] Log appended: /var/log/agent-app/monitor.log
+====== STATISTICS REPORT ======
+[CPU]
+  Average : 0.1%
+  Maximum : 0.1% at 2026-10-28 05:28:14
+  Minimum : 0.0% at 2026-10-28 05:29:02
+[Memory]
+  Average : 9.8%
+  Maximum : 10.2% at 2026-10-28 05:28:14
+  Minimum : 9.6% at 2026-10-28 05:29:02
+[Disk]
+  Average : 58.0%
+  Maximum : 58.0% at 2026-10-28 05:28:14
+  Minimum : 58.0% at 2026-10-28 05:28:14
+[Samples]
+  Data Points: 3 samples
+exit=0
+=== E2E PASSED

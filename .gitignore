@@ -1,0 +1,7 @@
+.DS_Store
+.serena/
+.show-your-work/
+*.swp
+# 실습 중 생성될 수 있는 비밀/상태 파일
+*.key
+*.pem
