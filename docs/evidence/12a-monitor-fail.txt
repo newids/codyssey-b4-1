@@ -1,10 +1,4 @@
 ubuntu@linux:~/codyssey-b4-1$ sudo scripts/monitor.sh
-[sudo: authenticate] Password:
-====== SYSTEM MONITOR RESULT ======
-[HEALTH CHECK]
-  Checking process 'agent_app.py|agent-app-linux'... [FAIL]
-[FAIL] process 'agent_app\.py|agent-app-linux' is not running
-ubuntu@linux:~/codyssey-b4-1$ sudo scripts/monitor.sh
 ====== SYSTEM MONITOR RESULT ======
 [HEALTH CHECK]
   Checking process 'agent_app.py|agent-app-linux'... [OK] (PID: 29645)
@@ -12,10 +6,10 @@ ubuntu@linux:~/codyssey-b4-1$ sudo scripts/monitor.sh
 [FIREWALL CHECK]
   ufw is active... [OK]
 [RESOURCE MONITORING]
-  CPU Usage : 1.8%
-  MEM Usage : 18.7%
+  CPU Usage : 4.8%
+  MEM Usage : 19.3%
   DISK Used : 25%
-  [WARNING] MEM threshold exceeded (18.7% > 10%)
+  [WARNING] MEM threshold exceeded (19.3% > 10%)
 [INFO] Log appended: /var/log/agent-app/monitor.log
 ====== STATISTICS REPORT ======
 [CPU]
@@ -31,5 +25,15 @@ ubuntu@linux:~/codyssey-b4-1$ sudo scripts/monitor.sh
   Maximum : 25.0% at 2026-11-19 13:34:36
   Minimum : 25.0% at 2026-11-19 13:34:36
 [Samples]
-  Data Points: 107 samples
-ubuntu@linux:~/codyssey-b4-1$
+  Data Points: 113 samples
+ubuntu@linux:~/codyssey-b4-1$ sudo scripts/monitor.sh
+====== SYSTEM MONITOR RESULT ======
+[HEALTH CHECK]
+  Checking process 'agent_app.py|agent-app-linux'... [FAIL]
+[FAIL] process 'agent_app\.py|agent-app-linux' is not running
+ubuntu@linux:~/codyssey-b4-1$  sudo scripts/monitor.sh ; echo exit=$?
+====== SYSTEM MONITOR RESULT ======
+[HEALTH CHECK]
+  Checking process 'agent_app.py|agent-app-linux'... [FAIL]
+[FAIL] process 'agent_app\.py|agent-app-linux' is not running
+exit=1

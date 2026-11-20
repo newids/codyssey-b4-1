@@ -1,0 +1,4 @@
+### 앱 LISTEN 상태 (앱 실행 중이어야 함)
+$ ss -tlnp | grep ':15034\b' || echo 'NOT LISTENING - 앱을 먼저 실행하라'
+
+NOT LISTENING - 앱을 먼저 실행하라
