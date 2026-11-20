@@ -1,0 +1,7 @@
+[INFO] 디렉토리/권한:
+drwxr-x---+ 5 agent-admin agent-core   4096 Nov 19 12:41 /home/agent-admin/agent-app
+drwxrws---+ 2 agent-admin agent-core   4096 Nov 19 12:41 /home/agent-admin/agent-app/api_keys
+drwxr-x---  2 agent-dev   agent-core   4096 Nov 19 12:41 /home/agent-admin/agent-app/bin
+drwxrws---+ 2 agent-admin agent-common 4096 Nov 19 12:42 /home/agent-admin/agent-app/upload_files
+drwxrws---+ 2 agent-admin agent-core   4096 Nov 19 12:42 /var/log/agent-app
+drwxrws---+ 2 agent-admin agent-core   4096 Nov 19 12:43 /var/log/monitor/agent-app/archive

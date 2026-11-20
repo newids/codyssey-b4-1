@@ -1,0 +1,38 @@
+[INFO] installed: /home/agent-admin/agent-app/bin/monitor.sh
+[INFO] installed: /home/agent-admin/agent-app/bin/report.sh
+[INFO] installed: /home/agent-admin/agent-app/bin/log_retention.sh
+[INFO] monitor.sh 문법 검사 OK
+total 24
+-rwxr-x--- 1 agent-dev agent-core  4227 Nov 19 13:34 log_retention.sh
+-rwxr-x--- 1 agent-dev agent-core 10916 Nov 19 13:34 monitor.sh
+-rwxr-x--- 1 agent-dev agent-core  4033 Nov 19 13:34 report.sh
+
+[INFO] agent-admin 으로 실행 가능 여부 확인 (앱이 떠 있지 않으면 exit 1 이 정상):
+====== SYSTEM MONITOR RESULT ======
+[HEALTH CHECK]
+  Checking process 'agent_app.py|agent-app-linux'... [OK] (PID: 21857)
+  Checking port 15034... [OK]
+[FIREWALL CHECK]
+  ufw is active... [OK]
+[RESOURCE MONITORING]
+  CPU Usage : 4.8%
+  MEM Usage : 21.1%
+  DISK Used : 25%
+  [WARNING] MEM threshold exceeded (21.1% > 10%)
+[INFO] Log appended: /var/log/agent-app/monitor.log
+====== STATISTICS REPORT ======
+[CPU]
+  Average : 4.8%
+  Maximum : 4.8% at 2026-11-19 13:34:36
+  Minimum : 4.8% at 2026-11-19 13:34:36
+[Memory]
+  Average : 21.1%
+  Maximum : 21.1% at 2026-11-19 13:34:36
+  Minimum : 21.1% at 2026-11-19 13:34:36
+[Disk]
+  Average : 25.0%
+  Maximum : 25.0% at 2026-11-19 13:34:36
+  Minimum : 25.0% at 2026-11-19 13:34:36
+[Samples]
+  Data Points: 1 samples
+exit=0

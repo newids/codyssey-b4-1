@@ -1,0 +1,5 @@
+ubuntu@linux:~/codyssey-b4-1$ sudo scripts/log_retention.sh
+[2026-11-19 15:41:15] [INFO] log retention start (log=/var/log/agent-app, archive=/var/log/monitor/agent-app/archive, compress>7d, delete>30d, dry-run=0)
+[2026-11-19 15:41:15] [INFO] no *.log files older than 7 days in /var/log/agent-app
+[2026-11-19 15:41:15] [INFO] no *.gz archives older than 30 days in /var/log/monitor/agent-app/archive
+[2026-11-19 15:41:15] [INFO] log retention done

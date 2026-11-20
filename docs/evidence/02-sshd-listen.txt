@@ -1,0 +1,7 @@
+[INFO] sshd_config 백업: /etc/ssh/sshd_config.bak.20261119_123340
+[INFO] sshd 유효 설정:
+port 20022
+permitrootlogin no
+[INFO] sshd 가 20022 에서 리슨 중:
+LISTEN 0      4096         0.0.0.0:20022      0.0.0.0:*    users:(("sshd",pid=11455,fd=3),("systemd",pid=1,fd=78))
+LISTEN 0      4096            [::]:20022         [::]:*    users:(("sshd",pid=11455,fd=4),("systemd",pid=1,fd=79))

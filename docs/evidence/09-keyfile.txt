@@ -1,0 +1,20 @@
+agent-admin@linux:~/agent-app$ ls -alF
+total 13732
+drwxr-x---+ 5 agent-admin agent-core      4096 Nov 19 13:07 ./
+drwxr-x---+ 3 agent-admin agent-admin     4096 Nov 19 13:17 ../
+-rwxr-x---  1 agent-admin agent-core   7537848 Nov 19 12:21 agent-app-linux-arm64*
+-rwxr-x---  1 agent-admin agent-core   6498144 Nov 19 12:21 agent-app-linux-x86*
+drwxrws---+ 2 agent-admin agent-core      4096 Nov 19 13:22 api_keys/
+drwxr-x---  2 agent-dev   agent-core      4096 Nov 19 12:41 bin/
+drwxrws---+ 2 agent-admin agent-common    4096 Nov 19 12:42 upload_files/
+agent-admin@linux:~/agent-app$ ls -alF api_keys
+total 16
+drwxrws---+ 2 agent-admin agent-core 4096 Nov 19 13:22 ./
+drwxr-x---+ 5 agent-admin agent-core 4096 Nov 19 13:07 ../
+-rw-rw----+ 1 agent-admin agent-core   19 Nov 19 13:22 secret.key
+-rw-rw----+ 1 agent-admin agent-core   19 Nov 19 12:50 t_secret.key
+agent-admin@linux:~/agent-app$ cat ./api_keys/t_secret.key
+agent_api_key_test
+agent-admin@linux:~/agent-app$ cat ./api_keys/secret.key
+agent_api_key_test
+agent-admin@linux:~/agent-app$

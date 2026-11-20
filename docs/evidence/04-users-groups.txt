@@ -1,0 +1,7 @@
+[INFO] 계정/그룹:
+uid=1001(agent-admin) gid=1003(agent-admin) groups=1003(agent-admin),1001(agent-common),1002(agent-core)
+uid=1002(agent-dev) gid=1004(agent-dev) groups=1004(agent-dev),1001(agent-common),1002(agent-core)
+uid=1003(agent-test) gid=1005(agent-test) groups=1005(agent-test),1001(agent-common)
+agent-common:x:1001:agent-admin,agent-dev,agent-test
+agent-core:x:1002:agent-admin,agent-dev
+

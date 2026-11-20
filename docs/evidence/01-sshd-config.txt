@@ -1,0 +1,14 @@
+ubuntu@linux:~/codyssey-b4-1$ sudo cp -a /etc/ssh/sshd_config /etc/ssh/sshd_config.bak.$(date +%F)
+sudo sed -i -E 's/^[#[:space:]]*Port[[:space:]].*/Port 20022/' /etc/ssh/sshd_config
+sudo sed -i -E 's/^[#[:space:]]*PermitRootLogin[[:space:]].*/PermitRootLogin no/' /etc/ssh/sshd_config
+grep -nE '^(Port|PermitRootLogin)' /etc/ssh/sshd_config
+# drop-in 이 우선 적용되므로 충돌값 확인 (있으면 주석 처리)
+grep -RnE '^(Port|PermitRootLogin)' /etc/ssh/sshd_config.d/ || echo "drop-in 충돌 없음"
+sudo sshd -t && sudo sshd -T | grep -Ei '^(port|permitrootlogin) '   # 유효(effective) 설정
+[sudo: authenticate] Password:
+35:Port 20022
+54:PermitRootLogin no
+grep: /etc/ssh/sshd_config.d/50-cloud-init.conf: Permission denied
+drop-in 충돌 없음
+port 20022
+permitrootlogin no

@@ -1,0 +1,12 @@
+sudo su - agent-test  -c 'touch /home/agent-admin/agent-app/upload_files/from-test.txt && echo OK'   # OK
+sudo su - agent-test  -c 'cat /home/agent-admin/agent-app/api_keys/t_secret.key'                     # Permission denied (키 생성 후)
+sudo su - agent-test  -c 'ls /var/log/agent-app'                                                     # Permission denied
+sudo su - agent-dev   -c 'cat /home/agent-admin/agent-app/api_keys/t_secret.key'                     # 키 내용 출력
+sudo su - agent-admin -c 'touch /var/log/agent-app/.t && rm /var/log/agent-app/.t && echo OK'        # OK
+ls -l /home/agent-admin/agent-app/upload_files/from-test.txt                                          # 그룹이 agent-common
+OK
+cat: /home/agent-admin/agent-app/api_keys/t_secret.key: Permission denied
+ls: cannot open directory '/var/log/agent-app': Permission denied
+cat: /home/agent-admin/agent-app/api_keys/t_secret.key: No such file or directory
+OK
+ls: cannot open file '/home/agent-admin/agent-app/upload_files/from-test.txt': Permission denied

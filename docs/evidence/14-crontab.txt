@@ -1,0 +1,20 @@
+ubuntu@linux:~/codyssey-b4-1$ sudo crontab -l -u agent-admin
+# b4-1 monitor
+* * * * * [ -r /etc/profile.d/agent-env.sh ] && . /etc/profile.d/agent-env.sh; MONITOR_SKIP_REPORT=1 /home/agent-admin/agent-app/bin/monitor.sh >/dev/null 2>>/var/log/agent-app/monitor.cron.log
+
+
+ubuntu@linux:~/codyssey-b4-1$ sudo wc -l /var/log/agent-app/monitor.log; date; sleep 65; date; sudo wc -l /var/log/agent-app/monitor.log
+sudo tail -n 3 /var/log/agent-app/monitor.log                       # 1분 간격 타임스탬프
+grep CRON /var/log/syslog | tail -n 3                               # (agent-admin) CMD (. /etc/profile.d/...)
+4 /var/log/agent-app/monitor.log
+Thu Nov 19 01:47:44 PM UTC 2026
+
+Thu Nov 19 01:48:49 PM UTC 2026
+
+5 /var/log/agent-app/monitor.log
+[2026-11-19 13:46:02] PID:21857 CPU:0.3% MEM:16.8% DISK_USED:25%
+[2026-11-19 13:47:02] PID:21857 CPU:5.3% MEM:24.1% DISK_USED:25%
+[2026-11-19 13:48:02] PID:21857 CPU:4.6% MEM:19.5% DISK_USED:25%
+2026-11-19T13:46:01.199486+00:00 linux CRON[22446]: (agent-admin) CMD ([ -r /etc/profile.d/agent-env.sh ] && . /etc/profile.d/agent-env.sh; MONITOR_SKIP_REPORT=1 /home/agent-admin/agent-app/bin/monitor.sh >/dev/null 2>>/var/log/agent-app/monitor.cron.log)
+2026-11-19T13:47:01.384202+00:00 linux CRON[22520]: (agent-admin) CMD ([ -r /etc/profile.d/agent-env.sh ] && . /etc/profile.d/agent-env.sh; MONITOR_SKIP_REPORT=1 /home/agent-admin/agent-app/bin/monitor.sh >/dev/null 2>>/var/log/agent-app/monitor.cron.log)
+2026-11-19T13:48:01.522445+00:00 linux CRON[22601]: (agent-admin) CMD ([ -r /etc/profile.d/agent-env.sh ] && . /etc/profile.d/agent-env.sh; MONITOR_SKIP_REPORT=1 /home/agent-admin/agent-app/bin/monitor.sh >/dev/null 2>>/var/log/agent-app/monitor.cron.log)

@@ -1,0 +1,32 @@
+ubuntu@linux:~/codyssey-b4-1$ sudo su - agent-admin -c '$AGENT_HOME/bin/monitor.sh; echo exit=$?'
+====== SYSTEM MONITOR RESULT ======
+[HEALTH CHECK]
+  Checking process 'agent_app.py|agent-app-linux'... [OK] (PID: 21857)
+  Checking port 15034... [OK]
+[FIREWALL CHECK]
+  ufw is active... [OK]
+[RESOURCE MONITORING]
+  CPU Usage : 3.1%
+  MEM Usage : 21.2%
+  DISK Used : 25%
+  [WARNING] MEM threshold exceeded (21.2% > 10%)
+[INFO] Log appended: /var/log/agent-app/monitor.log
+====== STATISTICS REPORT ======
+[CPU]
+  Average : 4.0%
+  Maximum : 4.8% at 2026-11-19 13:34:36
+  Minimum : 3.1% at 2026-11-19 13:36:24
+[Memory]
+  Average : 21.1%
+  Maximum : 21.2% at 2026-11-19 13:36:24
+  Minimum : 21.1% at 2026-11-19 13:34:36
+[Disk]
+  Average : 25.0%
+  Maximum : 25.0% at 2026-11-19 13:34:36
+  Minimum : 25.0% at 2026-11-19 13:34:36
+[Samples]
+  Data Points: 2 samples
+exit=0
+ubuntu@linux:~/codyssey-b4-1$ sudo tail -n 3 /var/log/agent-app/monitor.log
+[2026-11-19 13:34:36] PID:21857 CPU:4.8% MEM:21.1% DISK_USED:25%
+[2026-11-19 13:36:24] PID:21857 CPU:3.1% MEM:21.2% DISK_USED:25%

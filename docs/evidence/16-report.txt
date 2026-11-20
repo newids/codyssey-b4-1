@@ -1,0 +1,21 @@
+ubuntu@linux:~/codyssey-b4-1$ sudo tail -n 3 /var/log/agent-app/monitor.log
+[2026-11-19 15:27:02] PID:21857 CPU:7.0% MEM:20.7% DISK_USED:25%
+[2026-11-19 15:28:02] PID:21857 CPU:2.0% MEM:22.4% DISK_USED:25%
+[2026-11-19 15:33:03] PID:27694 CPU:4.0% MEM:23.5% DISK_USED:25%
+ubuntu@linux:~/codyssey-b4-1$ sudo scripts/report.sh
+====== STATISTICS REPORT ======
+[CPU]
+  Average : 4.4%
+  Maximum : 7.0% at 2026-11-19 15:27:02
+  Minimum : 0.2% at 2026-11-19 14:24:02
+[Memory]
+  Average : 20.5%
+  Maximum : 24.1% at 2026-11-19 13:47:02
+  Minimum : 16.0% at 2026-11-19 15:17:02
+[Disk]
+  Average : 25.0%
+  Maximum : 25.0% at 2026-11-19 13:34:36
+  Minimum : 25.0% at 2026-11-19 13:34:36
+[Samples]
+  Data Points: 106 samples
+ubuntu@linux:~/codyssey-b4-1$
