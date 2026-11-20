@@ -21,7 +21,7 @@
 | 12a-monitor-fail.txt | 앱 종료 상태에서 monitor.sh [FAIL] — 수동 캡처 |
 | 13-monitor-log.txt | monitor.log 최근 라인 |
 | 14-crontab.txt | crontab(monitor 매분 + log_retention 매일 03:00) + syslog CRON |
-| 15-cron-growth.txt | 65초 전후 로그 줄 수 |
+| 15-cron-growth.txt | syslog CRON 실행 기록 + 65초 전후 로그 줄 수 |
 | 16-report.txt | 보너스 1 |
 | 17-log-retention.txt | 보너스 2 (dry-run) |
 
