@@ -1,7 +1,15 @@
-ubuntu@linux:~/codyssey-b4-1$ sudo crontab -l -u agent-admin
+ubuntu@linux:~/codyssey-b4-1$ sudo scripts/setup/05-cron.sh
+[INFO] 등록된 crontab (agent-admin):
 # b4-1 monitor
 * * * * * [ -r /etc/profile.d/agent-env.sh ] && . /etc/profile.d/agent-env.sh; MONITOR_SKIP_REPORT=1 /home/agent-admin/agent-app/bin/monitor.sh >/dev/null 2>>/var/log/agent-app/monitor.cron.log
 
+[NEXT] 1~2분 뒤 자동 누적 확인:
+   tail -n 3 /var/log/agent-app/monitor.log ; sleep 65 ; tail -n 3 /var/log/agent-app/monitor.log
+   grep CRON /var/log/syslog | tail   (또는 journalctl -u cron -n 5)
+ubuntu@linux:~/codyssey-b4-1$ sudo crontab -l -u agent-admin
+# b4-1 monitor
+* * * * * [ -r /etc/profile.d/agent-env.sh ] && . /etc/profile.d/agent-env.sh; MONITOR_SKIP_REPORT=1 /home/agent-admin/agent-app/bin/monitor.sh >/dev/null 2>>/var/log/agent-app/monitor.cron.log
+ubuntu@linux:~/codyssey-b4-1$
 
 ubuntu@linux:~/codyssey-b4-1$ sudo wc -l /var/log/agent-app/monitor.log; date; sleep 65; date; sudo wc -l /var/log/agent-app/monitor.log
 sudo tail -n 3 /var/log/agent-app/monitor.log                       # 1분 간격 타임스탬프
