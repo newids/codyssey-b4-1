@@ -1,0 +1,45 @@
+Last login: Fri Nov 20 19:27:46 on tty??
+You have new mail.
+❯ ssh ubuntu@192.168.64.2
+ssh: connect to host 192.168.64.2 port 22: Operation timed out
+❯ ssh -p 20022 ubuntu@192.168.64.2
+ubuntu@192.168.64.2's password:
+Welcome to Ubuntu 26.04.1 LTS (GNU/Linux 7.0.0-43-generic aarch64)
+
+ * Documentation:  https://docs.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Thu Nov 19 04:30:30 PM UTC 2026
+
+  System load:             0.0
+  Usage of /:              23.3% of 29.82GB
+  Memory usage:            12%
+  Swap usage:              0%
+  Processes:               164
+  Users logged in:         1
+  IPv4 address for enp0s1: 192.168.64.2
+  IPv6 address for enp0s1: fd15:730a:4982:51cc:140d:75ff:fe6b:5256
+
+ * Canonical Workshop gives developers fast, composable, reproducible, and
+   secure developer environments that are perfect for agentic workflows.
+
+   https://ubuntu.com/workshop
+
+Expanded Security Maintenance for Applications is not enabled.
+
+41 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+Last login: Thu Nov 19 13:17:55 2026 from 192.168.64.2
+ubuntu@linux:~$ exit
+logout
+Connection to 192.168.64.2 closed.
+❯ ssh -p 20022 root@192.168.64.2
+root@192.168.64.2's password:
+Permission denied, please try again.
+root@192.168.64.2's password:

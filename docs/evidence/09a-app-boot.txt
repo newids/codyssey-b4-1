@@ -1,0 +1,37 @@
++ cd /home/agent-admin/agent-app
++ uname -m
++ [ aarch64 = x86_64 ]
++ echo arm64
++ ./agent-app-linux-arm64
+>>> Starting Agent Boot Sequence...
+[1/5] Checking User Account               [OK]
+   ... Running as service user 'agent-admin' (uid=1001)
+[2/5] Verifying Environment Variables     [OK]
+   ... All required Envs correct
+[3/5] Checking Required Files             [OK]
+   ... Verified 'secret.key' with correct key string.
+[4/5] Checking Port Availability          [OK]
+   ... Port 15034 is available.
+[5/5] Verifying Log Permission            [OK]
+   ... Log directory is writable: /var/log/agent-app
+------------------------------------------------------------
+All Boot Checks Passed!
+Agent READY
+2026-11-19 16:18:16,754 [INFO] [SafetyGuard] Process priority lowered (nice=10).
+2026-11-19 16:18:16,754 [INFO] Agent listening at port 15034
+2026-11-19 16:18:16,754 [INFO] === Agent Worker Started ===
+2026-11-19 16:18:16,754 [INFO]    > Cycle: 0 -> 256MB/Lv10 -> 0
+2026-11-19 16:18:16,754 [INFO] --- Step Info: Mode=UP, CPU Lv=1, Mem=0MB ---
+2026-11-19 16:18:16,760 [INFO] [Memory] Increasing... (+25 MB) Total: 25 MB
+2026-11-19 16:18:16,760 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-11-19 16:18:18,832 [INFO] --- Step Info: Mode=UP, CPU Lv=2, Mem=25MB ---
+2026-11-19 16:18:18,851 [INFO] [Memory] Increasing... (+25 MB) Total: 50 MB
+2026-11-19 16:18:18,851 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-11-19 16:18:21,867 [INFO] --- Step Info: Mode=UP, CPU Lv=3, Mem=50MB ---
+2026-11-19 16:18:21,880 [INFO] [Memory] Increasing... (+25 MB) Total: 75 MB
+2026-11-19 16:18:21,881 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-11-19 16:18:25,888 [INFO] --- Step Info: Mode=UP, CPU Lv=4, Mem=75MB ---
+2026-11-19 16:18:25,904 [INFO] [Memory] Increasing... (+25 MB) Total: 100 MB
+2026-11-19 16:18:25,904 [INFO] [CPU] Occupy core for 4s (Level 4)
+^C2026-11-19 16:18:26,029 [INFO] === Agent Shutdown. Releasing resources. ===
+2026-11-19 16:18:26,032 [INFO] User interrupted process. Shutting down gracefully...
