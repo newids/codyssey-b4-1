@@ -21,16 +21,16 @@ capture 01-sshd-config.txt     "SSH 포트/Root 로그인 설정"   "grep -nE '^
 capture 02-sshd-listen.txt     "sshd 리슨 포트"               "ss -tulnp | grep -E 'sshd|:${SSH_PORT}\b'"
 capture 03-firewall.txt        "방화벽 상태"                   "ufw status verbose 2>&1 || firewall-cmd --list-all 2>&1"
 capture 04-users-groups.txt    "계정/그룹"                     "id agent-admin; id agent-dev; id agent-test; getent group ${GROUP_COMMON} ${GROUP_CORE}"
-capture 05-directories.txt     "디렉토리 구조/권한"            "ls -ld /home/agent-admin ${AGENT_HOME} ${AGENT_UPLOAD_DIR} $(dirname ${AGENT_KEY_PATH}) ${AGENT_LOG_DIR} ${AGENT_HOME}/bin; echo; ls -la ${AGENT_HOME}"
-capture 06-acl.txt             "ACL"                           "getfacl -p ${AGENT_UPLOAD_DIR} $(dirname ${AGENT_KEY_PATH}) ${AGENT_LOG_DIR}"
+capture 05-directories.txt     "디렉토리 구조/권한"            "ls -ld /home/agent-admin ${AGENT_HOME} ${AGENT_UPLOAD_DIR} ${AGENT_KEY_PATH} ${AGENT_LOG_DIR} ${AGENT_HOME}/bin; echo; ls -la ${AGENT_HOME}"
+capture 06-acl.txt             "ACL"                           "getfacl -p ${AGENT_UPLOAD_DIR} ${AGENT_KEY_PATH} ${AGENT_LOG_DIR}"
 capture 07-permission-test.txt "권한 실동작 검증(test 는 core 자원 접근 불가)" "
   su - agent-test  -c 'touch ${AGENT_UPLOAD_DIR}/from-test.txt && ls -l ${AGENT_UPLOAD_DIR}/from-test.txt && rm ${AGENT_UPLOAD_DIR}/from-test.txt && echo \"[test] upload_files write OK\"';
-  su - agent-test  -c 'cat ${AGENT_KEY_PATH} 2>&1 | head -1';
+  su - agent-test  -c 'cat ${AGENT_KEY_FILE} 2>&1 | head -1';
   su - agent-test  -c 'ls ${AGENT_LOG_DIR} 2>&1 | head -1';
-  su - agent-dev   -c 'cat ${AGENT_KEY_PATH} && echo \"[dev] api_keys read OK\"';
+  su - agent-dev   -c 'cat ${AGENT_KEY_FILE} && echo \"[dev] api_keys read OK\"';
   su - agent-admin -c 'touch ${AGENT_LOG_DIR}/.perm-test && rm ${AGENT_LOG_DIR}/.perm-test && echo \"[admin] log dir write OK\"'"
 capture 08-env.txt             "환경 변수"                     "cat ${ENV_FILE}; echo '--- agent-admin shell ---'; su - agent-admin -c 'env | grep ^AGENT_ | sort'"
-capture 09-keyfile.txt         "키 파일"                       "ls -l ${AGENT_KEY_PATH}; cat ${AGENT_KEY_PATH}; wc -l ${AGENT_KEY_PATH}"
+capture 09-keyfile.txt         "키 파일"                       "ls -l ${AGENT_KEY_FILE}; cat ${AGENT_KEY_FILE}; wc -l ${AGENT_KEY_FILE}"
 capture 10-app-listen.txt      "앱 LISTEN 상태 (앱 실행 중이어야 함)" "ss -tlnp | grep ':${AGENT_PORT}\b' || echo 'NOT LISTENING - 앱을 먼저 실행하라'"
 capture 11-monitor-script.txt  "monitor.sh 위치/소유/권한"     "ls -l ${AGENT_HOME}/bin/; stat -c '%U:%G %a %n' ${AGENT_HOME}/bin/monitor.sh"
 capture 12-monitor-run.txt     "monitor.sh 실행 결과 (agent-admin)" "su - agent-admin -c '. ${ENV_FILE}; ${AGENT_HOME}/bin/monitor.sh; echo exit=\$?'"

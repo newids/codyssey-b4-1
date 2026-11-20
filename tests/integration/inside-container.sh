@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Ubuntu 22.04 컨테이너 안에서 전체 설정 → 제공 앱 아키텍처 선택 확인 → 앱(mock) 기동 → monitor/cron/증빙 수집까지 실행하는 E2E.
+# Ubuntu 26.04 컨테이너 안에서 전체 설정 → 앱(제공 앱, 없으면 mock) 기동 → monitor/cron/증빙 수집까지 실행하는 E2E.
 # (UFW 는 컨테이너에서 enable 불가 → [WARNING] 경로가 검증된다)
 set -u
 export DEBIAN_FRONTEND=noninteractive
@@ -33,9 +33,9 @@ id -nG agent-admin | grep -q agent-core && id -nG agent-dev | grep -q agent-core
 
 echo "=== 5. 검증: 권한 실동작"
 su - agent-test -c 'touch /home/agent-admin/agent-app/upload_files/t.txt' && echo "test->upload_files write OK" || { echo "FAIL upload write"; exit 1; }
-su - agent-test -c 'cat /home/agent-admin/agent-app/api_keys/t_secret.key' 2>/dev/null && { echo "FAIL test could read key"; exit 1; } || echo "test->api_keys denied OK"
+su - agent-test -c 'cat /home/agent-admin/agent-app/api_keys/secret.key' 2>/dev/null && { echo "FAIL test could read key"; exit 1; } || echo "test->api_keys denied OK"
 su - agent-test -c 'ls /var/log/agent-app' 2>/dev/null && { echo "FAIL test could list log"; exit 1; } || echo "test->log dir denied OK"
-su - agent-dev -c 'cat /home/agent-admin/agent-app/api_keys/t_secret.key' | grep -q agent_api_key_test && echo "dev->api_keys read OK" || { echo "FAIL dev read key"; exit 1; }
+su - agent-dev -c 'cat /home/agent-admin/agent-app/api_keys/secret.key' | grep -q agent_api_key_test && echo "dev->api_keys read OK" || { echo "FAIL dev read key"; exit 1; }
 su - agent-admin -c 'touch /var/log/agent-app/.w && rm /var/log/agent-app/.w' && echo "admin->log write OK" || { echo "FAIL admin log write"; exit 1; }
 [[ "$(stat -c %G /home/agent-admin/agent-app/upload_files/t.txt)" == agent-common ]] && echo "setgid group inherit OK"
 
@@ -43,23 +43,16 @@ echo "=== 6. 앱 없는 상태에서 monitor.sh → exit 1"
 su - agent-admin -c '. /etc/profile.d/agent-env.sh; /home/agent-admin/agent-app/bin/monitor.sh'; rc=$?
 [[ $rc -eq 1 ]] && echo "exit 1 OK" || { echo "FAIL expected exit 1 got $rc"; exit 1; }
 
-echo "=== 7. 제공 앱: 호스트 아키텍처($(uname -m))에 맞는 버전 배치·실행 (agent-app/ 가 있을 때만)"
+echo "=== 7. 앱 기동 (agent-admin): agent-app/ 가 있으면 호스트 아키텍처($(uname -m))에 맞는 제공 앱, 없으면 mock"
+USE_MOCK=1
 if [[ -d "$REPO/agent-app" ]]; then
   bash scripts/setup/install-app.sh || { echo "FAIL install-app"; exit 1; }
   [[ "$(find /home/agent-admin/agent-app -maxdepth 1 -name 'agent-app-linux-*' | wc -l)" -eq 1 ]] || { echo "FAIL 한 버전만 배치돼야 한다"; exit 1; }
-  # 맞는 아키텍처 바이너리라면 Boot Sequence 가 시작된다 (틀리면 Exec format error)
-  su - agent-admin -c "timeout 5 bash $REPO/scripts/setup/run-app.sh" > /tmp/real-app.out 2>&1
-  head -n 4 /tmp/real-app.out
-  grep -q "Starting Agent Boot Sequence" /tmp/real-app.out && echo "arch-matched app exec OK" || { echo "FAIL real app exec"; exit 1; }
-  pkill -f agent-app-linux 2>/dev/null; sleep 1
-else
-  echo "(agent-app/ 없음 → 건너뜀)"
+  USE_MOCK=0
 fi
-
-echo "=== 7-1. mock 앱 기동 (agent-admin)"
-su - agent-admin -c "AGENT_USE_MOCK=1 nohup bash $REPO/scripts/setup/run-app.sh > /tmp/app.out 2>&1 &"
-for _ in $(seq 1 10); do sleep 1; grep -q "Agent READY" /tmp/app.out && break; done
-cat /tmp/app.out
+su - agent-admin -c "AGENT_USE_MOCK=$USE_MOCK nohup bash $REPO/scripts/setup/run-app.sh > /tmp/app.out 2>&1 &"
+for _ in $(seq 1 15); do sleep 1; grep -q "Agent READY" /tmp/app.out && break; done
+head -n 20 /tmp/app.out
 grep -q "Agent READY" /tmp/app.out || { echo "FAIL app boot"; exit 1; }
 ss -tlnp | grep ':15034 ' || { echo "FAIL app listen"; exit 1; }
 

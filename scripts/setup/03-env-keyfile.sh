@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # 요구사항 3: 환경 변수 고정(/etc/profile.d) + 키 파일 생성
+#   AGENT_KEY_PATH 는 키 디렉토리($AGENT_HOME/api_keys), 키 파일은 그 안의 secret.key
 source "$(dirname "${BASH_SOURCE[0]}")/00-common.sh"
 require_root
 
@@ -17,12 +18,11 @@ ENV
 }
 
 write_key_file() {
-  local key_dir; key_dir="$(dirname "$AGENT_KEY_PATH")"
-  [[ -d "$key_dir" ]] || die "키 디렉토리가 없다: $key_dir (02-users-groups-dirs.sh 먼저 실행)"
-  printf '%s\n' "$AGENT_KEY_VALUE" > "$AGENT_KEY_PATH"
-  chown agent-admin:"$GROUP_CORE" "$AGENT_KEY_PATH"
-  chmod 660 "$AGENT_KEY_PATH"
-  info "키 파일 생성: $AGENT_KEY_PATH"; ls -l "$AGENT_KEY_PATH"; wc -l "$AGENT_KEY_PATH"
+  [[ -d "$AGENT_KEY_PATH" ]] || die "키 디렉토리가 없다: $AGENT_KEY_PATH (02-users-groups-dirs.sh 먼저 실행)"
+  printf '%s\n' "$AGENT_KEY_VALUE" > "$AGENT_KEY_FILE"
+  chown agent-admin:"$GROUP_CORE" "$AGENT_KEY_FILE"
+  chmod 660 "$AGENT_KEY_FILE"
+  info "키 파일 생성: $AGENT_KEY_FILE"; ls -l "$AGENT_KEY_FILE"; wc -l "$AGENT_KEY_FILE"
 }
 
 main() {
@@ -30,6 +30,6 @@ main() {
   write_key_file
   echo
   info "검증(agent-admin 로그인 셸 기준):"
-  su - agent-admin -c 'env | grep ^AGENT_ | sort; cat "$AGENT_KEY_PATH"'
+  su - agent-admin -c 'env | grep ^AGENT_ | sort; cat "$AGENT_KEY_PATH/secret.key"'
 }
 main "$@"

@@ -45,7 +45,7 @@ create_directories() {
   setfacl -d -m "g:${GROUP_COMMON}:rwx" -d -m "o::---" "$AGENT_UPLOAD_DIR"
 
   # api_keys: group=agent-core ONLY
-  local key_dir; key_dir="$(dirname "$AGENT_KEY_PATH")"
+  local key_dir="$AGENT_KEY_PATH"
   install -d -o agent-admin -g "$GROUP_CORE" -m 2770 "$key_dir"
   setfacl -m "g:${GROUP_CORE}:rwx" -m "o::---" "$key_dir"
   setfacl -d -m "g:${GROUP_CORE}:rwx" -d -m "o::---" "$key_dir"
@@ -70,8 +70,8 @@ show_result() {
   for u in "${USERS[@]}"; do id "$u"; done
   getent group "$GROUP_COMMON" "$GROUP_CORE"
   echo; info "디렉토리/권한:"
-  ls -ld "$AGENT_HOME" "$AGENT_UPLOAD_DIR" "$(dirname "$AGENT_KEY_PATH")" "$AGENT_LOG_DIR" "${AGENT_HOME}/bin" "$ARCHIVE_DIR"
-  getfacl -p "$AGENT_UPLOAD_DIR" "$(dirname "$AGENT_KEY_PATH")" "$AGENT_LOG_DIR" 2>/dev/null
+  ls -ld "$AGENT_HOME" "$AGENT_UPLOAD_DIR" "$AGENT_KEY_PATH" "$AGENT_LOG_DIR" "${AGENT_HOME}/bin" "$ARCHIVE_DIR"
+  getfacl -p "$AGENT_UPLOAD_DIR" "$AGENT_KEY_PATH" "$AGENT_LOG_DIR" 2>/dev/null
 }
 
 main() {

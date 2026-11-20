@@ -22,4 +22,4 @@
 | 16-report.txt | 보너스 1 |
 | 17-log-retention.txt | 보너스 2 (dry-run) |
 
-`sample-docker-e2e.txt` 는 Ubuntu 22.04 **컨테이너**에서 돌린 E2E 결과로, 기대 출력의 참고용이다(UFW 는 컨테이너 제약으로 비활성). 제출용 증빙은 VM 에서 다시 수집한다.
+`sample-docker-e2e.txt` 는 Ubuntu 26.04 **컨테이너**(arm64)에서 돌린 E2E 결과로, 기대 출력의 참고용이다(UFW 는 컨테이너 제약으로 비활성). 제출용 증빙은 VM 에서 다시 수집한다.

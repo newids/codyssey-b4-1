@@ -1,6 +1,6 @@
 # codyssey-b4-1 — 컴퓨터가 알아서 자기 상태를 점검하게 만들기
 
-Ubuntu 22.04 서버에 **SSH 포트 변경·Root 차단 → UFW 최소 허용 → 역할 기반 계정/그룹/ACL → 환경 변수 고정 → 제공 앱 실행 → monitor.sh 관제 → cron 매분 자동화 → 로그 보존** 을 구축하는 미션 제출물이다.
+Ubuntu 26.04 LTS 서버(실습: UTM VM, 26.04.1 live server arm64)에 **SSH 포트 변경·Root 차단 → UFW 최소 허용 → 역할 기반 계정/그룹/ACL → 환경 변수 고정 → 제공 앱 실행 → monitor.sh 관제 → cron 매분 자동화 → 로그 보존** 을 구축하는 미션 제출물이다.
 
 ## 제출물
 
@@ -21,12 +21,12 @@ Ubuntu 22.04 서버에 **SSH 포트 변경·Root 차단 → UFW 최소 허용 �
 | [`docs/guide/03-트러블슈팅.md`](docs/guide/03-트러블슈팅.md) | 12가지 흔한 문제의 증상·원인·조치 |
 | [`docs/qa/문제와-답변.md`](docs/qa/문제와-답변.md) | 과제 목표 6문항 + 심화·오개념·시나리오 Q&A |
 
-## 빠른 실행 (Ubuntu 22.04, root)
+## 빠른 실행 (Ubuntu 26.04, root)
 
 ```bash
 sudo scripts/setup/01-ssh-firewall.sh        # SSH 20022, PermitRootLogin no, UFW 20022/15034
 sudo scripts/setup/02-users-groups-dirs.sh   # 계정/그룹/디렉토리/ACL
-sudo scripts/setup/03-env-keyfile.sh         # /etc/profile.d/agent-env.sh, t_secret.key
+sudo scripts/setup/03-env-keyfile.sh         # /etc/profile.d/agent-env.sh, api_keys/secret.key
 sudo scripts/setup/04-install-scripts.sh     # $AGENT_HOME/bin/{monitor,report,log_retention}.sh (agent-dev:agent-core 750)
 # 제공 앱(agent-app.zip)을 저장소의 agent-app/ 에 풀어 두면, 호스트 아키텍처(uname -m)에 맞는 버전만 $AGENT_HOME 에 배치
 sudo scripts/setup/install-app.sh            # x86_64 → agent-app-linux-x86, aarch64 → agent-app-linux-arm64
@@ -40,7 +40,7 @@ sudo scripts/setup/collect-evidence.sh       # docs/evidence/01~17-*.txt 생성 
 
 ```bash
 bash tests/run_all.sh                    # 단위 테스트 (macOS/Linux, root 불필요)
-bash tests/integration/docker-e2e.sh     # Ubuntu 22.04 컨테이너 E2E (설정→앱→monitor→cron→증빙)
+bash tests/integration/docker-e2e.sh     # Ubuntu 26.04 컨테이너 E2E (설정→앱→monitor→cron→증빙)
 ```
 
 ## 저장소 구조

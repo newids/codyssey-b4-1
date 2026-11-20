@@ -13,6 +13,7 @@ import socket
 import sys
 import time
 
+KEY_FILE_NAME = "secret.key"
 REQUIRED_ENVS = ("AGENT_HOME", "AGENT_PORT", "AGENT_UPLOAD_DIR", "AGENT_KEY_PATH", "AGENT_LOG_DIR")
 EXPECTED_KEY = "agent_api_key_test"
 
@@ -34,10 +35,17 @@ def main():
     step(1, "Checking User Account", uid != 0, f"Running as service user '{name}' (uid={uid})")
 
     missing = [e for e in REQUIRED_ENVS if not os.environ.get(e)]
-    step(2, "Verifying Environment Variables", not missing,
-         "All required Envs correct" if not missing else f"Missing: {', '.join(missing)}")
+    # 제공 앱과 동일: AGENT_KEY_PATH 는 키 "디렉토리"($AGENT_HOME/api_keys) 여야 한다
+    expected_key_dir = os.path.join(os.environ.get("AGENT_HOME", ""), "api_keys")
+    if missing:
+        env_ok, env_detail = False, f"Missing: {', '.join(missing)}"
+    elif os.environ["AGENT_KEY_PATH"].rstrip("/") != expected_key_dir:
+        env_ok, env_detail = False, f"Key Path Mismatch. Expected: {expected_key_dir}"
+    else:
+        env_ok, env_detail = True, "All required Envs correct"
+    step(2, "Verifying Environment Variables", env_ok, env_detail)
 
-    key_path = os.environ["AGENT_KEY_PATH"]
+    key_path = os.path.join(os.environ["AGENT_KEY_PATH"], KEY_FILE_NAME)
     try:
         with open(key_path, encoding="utf-8") as f:
             key_ok = f.readline().strip() == EXPECTED_KEY
