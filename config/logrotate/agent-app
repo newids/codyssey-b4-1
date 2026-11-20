@@ -1,0 +1,18 @@
+# /etc/logrotate.d/agent-app — 참고용 대안 (기본 구성에서는 설치하지 않음)
+#
+# 이 저장소는 monitor.sh 의 rotate_log_if_needed 로 10MB/10개를 관리한다.
+# logrotate 로 바꾸려면 monitor.sh 회전을 끄고 이 파일만 사용한다(두 방식을 함께 쓰면 회전이 겹친다).
+#   sudo install -m 644 config/logrotate/agent-app /etc/logrotate.d/agent-app
+#   sudo logrotate -d /etc/logrotate.d/agent-app      # 문법·대상 확인 (dry-run)
+# 기본 logrotate 는 cron.daily(하루 1회)라 "10MB 초과 즉시" 회전을 보장하지 않으므로,
+# 즉시성이 필요하면 /etc/cron.hourly 등에서 `logrotate /etc/logrotate.d/agent-app` 을 더 자주 호출한다.
+
+/var/log/agent-app/monitor.log {
+    size 10M
+    # 현재 파일 1개 + 회전본 9개 = 총 10개
+    rotate 9
+    missingok
+    notifempty
+    create 0660 agent-admin agent-core
+    su agent-admin agent-core
+}

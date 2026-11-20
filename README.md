@@ -32,7 +32,7 @@ sudo scripts/setup/04-install-scripts.sh     # $AGENT_HOME/bin/{monitor,report,l
 sudo scripts/setup/install-app.sh            # x86_64 → agent-app-linux-x86, aarch64 → agent-app-linux-arm64
 # agent-admin 으로 실행 (별도 터미널, Ctrl+C 로 종료). 실행할 버전도 아키텍처를 보고 자동 선택
 sudo su - agent-admin -c 'bash ~/codyssey-b4-1/scripts/setup/run-app.sh'
-sudo scripts/setup/05-cron.sh                # agent-admin crontab 매분
+sudo scripts/setup/05-cron.sh                # agent-admin crontab: monitor 매분, log_retention 매일 03:00
 sudo scripts/setup/collect-evidence.sh       # docs/evidence/01~17-*.txt 생성 (약 70초)
 ```
 
@@ -51,6 +51,7 @@ scripts/report.sh             보너스 1
 scripts/log_retention.sh      보너스 2
 scripts/setup/                설정 자동화 (01~05), install-app.sh·run-app.sh(아키텍처별 앱 선택), collect-evidence.sh
 scripts/mock/agent_app.py     제공 앱 없는 환경용 테스트 대역 (제출용 아님)
+config/logrotate/agent-app    logrotate 대안 설정 (참고용, 기본 구성에서는 미설치)
 tests/                        단위 테스트 + Docker E2E
 docs/                         미션 원문, 가이드, 수행 내역서, Q&A, 증빙
 ```
